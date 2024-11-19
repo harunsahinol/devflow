@@ -54,11 +54,10 @@ const config: Config = {
       },
       backgroundImage: {
         "auth-dark": 'url("/images/auth-dark.png")',
-        "auth-light": 'url("/images/auth-lght.png")',
+        "auth-light": 'url("/images/auth-light.png")',
       },
     },
   },
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
   plugins: [require("tailwindcss-animate")],
 };
 export default config;
