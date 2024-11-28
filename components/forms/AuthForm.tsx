@@ -4,7 +4,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import {
   DefaultValues,
-  FieldValue,
   FieldValues,
   Path,
   SubmitHandler,
@@ -35,7 +34,6 @@ const AuthForm = <T extends FieldValues>({
   schema,
   defaultValues,
   formType,
-  onSubmit,
 }: AuthFormProps<T>) => {
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
