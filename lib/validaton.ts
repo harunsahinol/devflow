@@ -1,89 +1,94 @@
 import { z } from "zod";
 
 export const SignInSchema = z.object({
+  email: z
 
-email: z
+    .string()
 
-.string()
+    .min(1, { message: "Email is required" })
 
-.min(1, { message: "Email is required" })
+    .email({ message: "Please provide a valid email address." }),
 
-.email({ message: "Please provide a valid email address." }),
+  password: z
 
-password: z
+    .string()
 
-.string()
+    .min(6, { message: "Password must be at least 6 characters long. " })
 
-.min(6, { message: "Password must be at least 6 characters long. " })
-
-.max(100, { message: "Password cannot exceed 100 characters." }),
-
+    .max(100, { message: "Password cannot exceed 100 characters." }),
 });
 
 export const SignUpSchema = z.object({
+  username: z
 
-username: z
+    .string()
 
-.string()
+    .min(3, { message: "Username must be at least 3 characters long." })
 
-.min(3, { message: "Username must be at least 3 characters long." })
+    .max(30, { message: "Username cannot exceed 30 characters." })
 
-.max(30, { message: "Username cannot exceed 30 characters." })
+    .regex(/^[a-zA-Z0-9_]+$/, {
+      message: "Username can only contain letters, numbers, and underscores.",
+    }),
 
-.regex(/^[a-zA-Z0-9_]+$/, {
+  name: z
 
-message: "Username can only contain letters, numbers, and underscores.",
+    .string()
 
-}),
+    .min(1, { message: "Name is required." })
 
-name: z
+    .max(50, { message: "Name cannot exceed 50 characters." })
 
-.string()
+    .regex(/^[a-zA-Z\s]+$/, {
+      message: "Name can only contain letters and spaces.",
+    }),
 
-.min(1, { message: "Name is required." })
+  email: z
 
-.max(50, { message: "Name cannot exceed 50 characters." })
+    .string()
 
-.regex(/^[a-zA-Z\s]+$/, {
+    .min(1, { message: "Email is required." })
 
-message: "Name can only contain letters and spaces.",
+    .email({ message: "Please provide a valid email address." }),
 
-}),
+  password: z
 
-email: z
+    .string()
 
-.string()
+    .min(6, { message: "Password must be at least 6 characters long." })
 
-.min(1, { message: "Email is required." })
+    .max(100, { message: "Password cannot exceed 100 characters." })
 
-.email({ message: "Please provide a valid email address." }),
+    .regex(/[A-Z]/, {
+      message: "Password must contain at least one uppercase letter.",
+    })
 
-password: z
+    .regex(/[a-z]/, {
+      message: "Password must contain at least one lowercase letter.",
+    })
 
-.string()
+    .regex(/[0-9]/, { message: "Password must contain at least one number." })
 
-.min(6, { message: "Password must be at least 6 characters long." })
+    .regex(/[^a-zA-Z0-9]/, {
+      message: "Password must contain at least one special character.",
+    }),
+});
 
-.max(100, { message: "Password cannot exceed 100 characters." })
+export const AskQuestionSchema = z.object({
+  title: z
+    .string()
+    .min(1, { message: "Title is required." })
+    .max(100, { message: "Title cannot exceed 100 characters." }),
 
-.regex(/[A-Z]/, {
+  content: z.string().min(1, { message: "Content is required." }),
 
-message: "Password must contain at least one uppercase letter.",
-
-})
-
-.regex(/[a-z]/, {
-
-message: "Password must contain at least one lowercase letter.",
-
-})
-
-.regex(/[0-9]/, { message: "Password must contain at least one number." })
-
-.regex(/[^a-zA-Z0-9]/, {
-
-message: "Password must contain at least one special character.",
-
-}),
-
+  tags: z
+    .array(
+      z
+        .string()
+        .min(1, { message: "Tag is required." })
+        .max(30, { message: "Tag cannot exceed 30 characters." })
+    )
+    .min(1, { message: "At least one tag is required." })
+    .max(5, { message: "You can only add up to 5 tags." }),
 });
